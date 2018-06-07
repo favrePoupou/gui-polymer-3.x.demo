@@ -131,19 +131,38 @@ class Login extends PolymerElement {
           </div>
     `;
   }
+
 static get properties() {
   return {
-    user: {
-      type: String
-    },
+    user: { type: String },
+    isLogging : { type: Boolean, value: false },
+
+// Later on using I18N
+    _locales: {
+            type:  Object,
+            value: {
+              en: {
+                title:    'Authentification …',
+                username: 'Username',
+                password: 'Password',
+                confirm:  'OK',
+              },
+              fr: {
+                title:    'Authentification …',
+                username: 'Nom d\'utilisateur',
+                password: 'Mot de passe',
+                confirm:  'OK',
+              },
+            }
+          }
   };
 }
 
 constructor() {
     super();
-    this.user = {
-    username: 'external@example.com',
-    password: 'testing'
+      this.user = {
+      username: 'external@example.com',
+      password: 'testing'
     };
 }
 
@@ -153,10 +172,49 @@ constructor() {
   }
 
   submit(){
-    console.log('VALUE', this.user.username);
-  }
+    console.log('Username Value :', this.user.username);
+    console.log('Password Value :', this.user.password);
 
-  
+    var that = this;  
+    this.isLogging = true;       
+        gsked.app.user.login(this.user.username, this.user.password, true, function (err, result) {
+          if (err) {
+            if (_.isString(err.label)) {
+              gsked.error(err);
+            }
+
+            that.lastError = gsked.globals.lastError;
+            gsked.globals.lastError = null;
+
+            that.isLogging = false;
+
+            that.fire('onLoginError');
+          }
+          else {
+            var branchKeys = _.keys(gsked.app.services.gui.branches);
+            if (branchKeys.length === 0) {
+              gsked.error('Branches not found.');
+              return new Promise(function (resolve, reject) { reject(); });
+            }
+            else {
+              var branch = _.first(branchKeys);
+              gsked.app.user.setContext(gsked.app.user.app.name, branch, function (err, result) {
+/* 
+  you can retrieve the language at result.profile.language
+  you can retrieve the fullname at result.profile.fullname
+*/
+
+                if (err) {
+                  that.fire('onBranchSelectError', err);
+                }
+                else {
+                  that.async(that.close);
+                }
+              });
+            }
+          }
+        });
+  } // Submit()
 }
 
 window.customElements.define('my-login', Login);
