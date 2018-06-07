@@ -17,9 +17,11 @@
     "@polymer/iron-media-query": "^3.0.0-pre.15",
     "@polymer/iron-pages": "^3.0.0-pre.15",
     "@polymer/iron-selector": "^3.0.0-pre.15",
+    "@polymer/paper-checkbox": "^3.0.0-pre.18",
     "@polymer/paper-icon-button": "^3.0.0-pre.15",
     "@polymer/polymer": "^3.0.0",
-    "@webcomponents/webcomponentsjs": "^2.0.0"
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "soap": "^0.24.0"
   },
   "devDependencies": {
     "polymer-cli": "^1.7.1",

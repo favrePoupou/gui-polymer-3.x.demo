@@ -1,12 +1,3 @@
-/**
- * @license
- * Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
- */
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
@@ -22,158 +13,173 @@ import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import './my-icons.js';
+import './shared-styles.js';
 
 // Gesture events like tap and track generated from touch will not be
 // preventable, allowing for better scrolling performance.
 setPassiveTouchGestures(true);
-
 // Set Polymer's root path to the same value we passed to our service worker
 // in `index.html`.
 setRootPath(MyAppGlobals.rootPath);
 
 class MyApp extends PolymerElement {
-  static get template() {
+
+ static get template(){
     return html`
-      <style>
-        :host {
-          --app-primary-color: #4285f4;
-          --app-secondary-color: black;
-
-          display: block;
+     <style include="shared-styles">
+        *//* Change placeholder text inside inputs *//*
+        ::-webkit-input-placeholder {
+          *//* Chrome/Opera/Safari *//*
+          color: #d7d7d7;
+        }
+        ::-moz-placeholder {
+          *//* Firefox 19+ *//*
+          color: #d7d7d7;
+        }
+        :-ms-input-placeholder {
+          *//* IE 10+ *//*
+          color: #d7d7d7;
+        }
+        :-moz-placeholder {
+          *//* Firefox 18- *//*
+          color: #d7d7d7;
         }
 
-        app-drawer-layout:not([narrow]) [drawer-toggle] {
-          display: none;
+        body {
+          font-family: 'Open Sans', Arial, sans-serif;
+          font-size: 16px;
         }
 
-        app-header {
-          color: #fff;
-         //background-color: var(--app-primary-color);
-          background-color: #06275e;
-        }
-
-        app-header paper-icon-button {
-          --paper-icon-button-ink-color: white;
-        }
-
-        .drawer-list {
-          margin: 0 20px;
-        }
-
-        .drawer-list a {
-          display: block;
-          padding: 0 16px;
-          text-decoration: none;
-          color: var(--app-secondary-color);
-          line-height: 40px;
-        }
-
-        .drawer-list a.iron-selected {
-          color: black;
+        h3 {
           font-weight: bold;
+          font-size: 1.5rem;
+          text-align: center;
+          color: #303133;
         }
-      </style>
 
-      <app-location route="{{route}}" url-space-regex="^[[rootPath]]"></app-location>
+        h4 {
+          font-size: 1.2rem;
+          color: #3a74cb;
+        }
 
-      <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
-      </app-route>
+        .subscribe-container {
+          text-align: center;
+          margin: 2em auto;
+          padding: 1em;
+          width: 90%;
+          max-width: 500px;
+          background-color: #fff;
+        }
 
-      <app-drawer-layout fullbleed="" narrow="{{narrow}}">
-        <!-- Drawer content -->
-        <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
-          <app-toolbar>Menu</app-toolbar>
-          <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-            <a name="person" href="[[rootPath]]person">Personne</a>
-            <a name="company" href="[[rootPath]]company">Compagnie</a>
-            <a name="contract" href="[[rootPath]]contract">Contrat</a>
-            <a name="login" href="[[rootPath]]login">Login</a>
-          </iron-selector>
-        </app-drawer>
+        .mc_embed_signup input.required {
+          font-size: 16px;
+          border: none;
+          border-bottom: 1px solid #d7d7d7;
+          margin: 20px 0;
+          padding: 5px 20px 5px 10px;
+          outline: none;
+          width: 100%;
+          font-family: 'Open Sans', Arial, sans-serif;
+          box-sizing: border-box;
+        }
 
-        <!-- Main content -->
-        <app-header-layout has-scrolling-region="">
+        .mc_embed_signup input#mc-embedded-subscribe {
+          background: #3a74cb;
+          font-size: .8rem;
+          color: #fff;
+          border-radius: 40px;
+          padding: 12px 35px;
+          box-shadow: none;
+          outline: none;
+          border: none;
+          cursor: pointer;
+          margin: 4em auto;
+          display: block;
+          transition: 0.2s ease background;
+          font-family: 'Open Sans', Arial, sans-serif;
+          font-weight: 700;
+        }
 
-          <app-header slot="header" condenses="" reveals="" effects="waterfall">
-            <app-toolbar>
-              <paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button>
-              <div main-title="">
+        .error-message {
+          display: none;
+          color: red;
+          text-align: center;
+          font-size: .8em;
+        }
+
+
+
+        @media screen and (orientation:portrait) {
+             img {
+                width: 10%;
+                height: auto;
+            }
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 40%;
+                }
+         }
+        @media screen and (orientation:landscape) {
+             img {
+                width: 10%;
+                height: auto;
+            }
+            .center {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 20%;
+                }
+         }
+</style>
+      <img src="/images/logo_en.png" width="1" height="1" class="center">
+         <div class="subscribe-container">
+          <div class="mc_embed_signup">
+            <h3>Authentification</h3>
+            <form>
+              <div id="mc_embed_signup_scroll">
+                <div class="mc-field-group">
+                  <input type="text" value="[[user.username]]" placeholder="Nom utilisateur" name="username" class="required" id="uname">
+                </div>
+                <div class="mc-field-group">
+                  <input type="password" value="[[user.password]]" placeholder="Mot de passe" name="password" class="required password" id="pwd">
+                </div>
+                <input type="button" value="Ok" on-click="submit">
               </div>
-            </app-toolbar>
-          </app-header>
-
-          <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
-            <my-person name="person"></my-person>
-            <my-company name="company"></my-company>
-            <my-contract name="contract"></my-contract>
-            <my-login name="login"></my-login>
-            <my-view404 name="view404"></my-view404>
-          </iron-pages>
-        </app-header-layout>
-      </app-drawer-layout>
+            </form>
+          </div>
     `;
   }
 
-  static get properties() {
-    return {
-      page: {
-        type: String,
-        reflectToAttribute: true,
-        observer: '_pageChanged'
-      },
-      routeData: Object,
-      subroute: Object
-    };
-  }
-
-  static get observers() {
-    return [
-      '_routePageChanged(routeData.page)'
-    ];
-  }
-
-  _routePageChanged(page) {
-     // Show the corresponding page according to the route.
-     //
-     // If no page was found in the route data, page will be an empty string.
-     // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
-    if (!page) {
-      this.page = 'person';
-    } else if (['person', 'company', 'contract','login'].indexOf(page) !== -1) {
-      this.page = page;
-    } else {
-      this.page = 'view404';
-    }
-
-    // Close a non-persistent drawer when the page & route are changed.
-    if (!this.$.drawer.persistent) {
-      this.$.drawer.close();
-    }
-  }
-
-  _pageChanged(page) {
-    // Import the page component on demand.
-    //
-    // Note: `polymer build` doesn't like string concatenation in the import
-    // statement, so break it up.
-    switch (page) {
-      case 'person':
-        import('./person.js');
-        break;
-      case 'company':
-        import('./company.js');
-        break;
-      case 'contract':
-        import('./contract.js');
-        break;
-      case 'login':
-        import('./login.js');
-        break;
-      case 'view404':
-        import('./my-view404.js');
-        break;
-    }
-  }
+static get properties() {
+  return {
+    user: {
+      type: String
+    },
+  };
 }
+
+constructor() {
+    super();
+    this.user = {
+    username: 'external@example.com',
+    password: 'testing'
+    };
+}
+
+  findLanguage() {
+   var language = navigator.language || navigator.userLanguage;
+   console.log('language', language);
+  }
+
+  submit(){
+    console.log('VALUE', this.user.username);
+  }
+
+
+}
+
 
 window.customElements.define('my-app', MyApp);
