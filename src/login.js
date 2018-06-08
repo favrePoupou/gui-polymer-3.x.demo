@@ -178,13 +178,30 @@ constructor() {
 
     var url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
 
-    soap.createClient("http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1", 
-      function(_, soap) {
+    soap.createClient(url, function(_, soap) {
         soap.login({'username': 'external@example.com','password': 'testing'}, 
-          function() {
-            console.log('response ', arguments)
+          function(err, result) { 
+            console.log('AAAAA',result);
+          var res = JSON.parse(result.item.response);
+          var token = res.data.token; 
+          console.log('Token', token);
+
+          /*var branch ='/gadmin/v1.0/';
+
+          soap.setContext({'token': token, 'branch':branch , 'gui'} , 
+            function(err, res) {
+            if(err){
+                console.log('SSSS',err);
+              }
+              else{
+                console.log('XXXXX', dede);
+              }
+          })*/
+          
+
           })
-        })
+
+            })
    
   } // Submit()
 }
