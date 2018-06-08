@@ -3,6 +3,7 @@
 Copyright GardaWorld Inc
 */
 
+  console.log('soap-client');
   gsked.SoapClientBehavior = {
 
    static get properties() {

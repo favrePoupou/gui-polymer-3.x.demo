@@ -7,6 +7,7 @@
     "build": "polymer build",
     "lint": "polymer lint",
     "test": "polymer test",
+    "postinstall": "cd node_modules/soap && npm run build && cd ../..",
     "test:integration": "polymer build # test that psk builds without error with the CLI"
   },
   "dependencies": {
@@ -21,9 +22,11 @@
     "@polymer/paper-icon-button": "^3.0.0-pre.15",
     "@polymer/polymer": "^3.0.0",
     "@webcomponents/webcomponentsjs": "^2.0.0",
-    "soap": "^0.24.0"
+    "soap": "https://bitbucket.org/itdevps/node-soap.git",
+    "wolfy87-eventemitter": "^5.2.4"
   },
   "devDependencies": {
+    "browserify": "^16.2.2",
     "polymer-cli": "^1.7.1",
     "wct-browser-legacy": "^1.0.0"
   },

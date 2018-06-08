@@ -168,52 +168,24 @@ constructor() {
 
   findLanguage() {
    var language = navigator.language || navigator.userLanguage;
-   console.log('language', language);
+   return language;   
   }
 
   submit(){
     console.log('Username Value :', this.user.username);
     console.log('Password Value :', this.user.password);
+    console.log('Browser language :', this.findLanguage());
 
-    var that = this;  
-    this.isLogging = true;       
-        gsked.app.user.login(this.user.username, this.user.password, true, function (err, result) {
-          if (err) {
-            if (_.isString(err.label)) {
-              gsked.error(err);
-            }
+    var url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
 
-            that.lastError = gsked.globals.lastError;
-            gsked.globals.lastError = null;
-
-            that.isLogging = false;
-
-            that.fire('onLoginError');
-          }
-          else {
-            var branchKeys = _.keys(gsked.app.services.gui.branches);
-            if (branchKeys.length === 0) {
-              gsked.error('Branches not found.');
-              return new Promise(function (resolve, reject) { reject(); });
-            }
-            else {
-              var branch = _.first(branchKeys);
-              gsked.app.user.setContext(gsked.app.user.app.name, branch, function (err, result) {
-/* 
-  you can retrieve the language at result.profile.language
-  you can retrieve the fullname at result.profile.fullname
-*/
-
-                if (err) {
-                  that.fire('onBranchSelectError', err);
-                }
-                else {
-                  that.async(that.close);
-                }
-              });
-            }
-          }
-        });
+    soap.createClient("http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1", 
+      function(_, soap) {
+        soap.login({'username': 'external@example.com','password': 'testing'}, 
+          function() {
+            console.log('response ', arguments)
+          })
+        })
+   
   } // Submit()
 }
 

@@ -5,15 +5,16 @@ Copyright GardaWorld Inc
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import './shared-styles.js';
 
-class SoapMapper extends PolymerElement {         
+console.log('SOAP-MAPPER');
 
+class SoapMapper extends PolymerElement {  
        static get properties() {
           mappings: { type: Object, value: function () { return {}; } },
 
           keepInstance: { type: Boolean, value: true },
         },
 
-        fullpath(context, type, name) {
+        fullpath(context, type, name) {         
           return (context + (type ? '.' + type : '') + (name ? '.' + name : '')).toLowerCase();
         },
 

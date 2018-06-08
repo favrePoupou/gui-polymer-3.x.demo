@@ -8,7 +8,9 @@
     "manifest.json",
     "node_modules/@webcomponents/webcomponentsjs/*.js",
     "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",
-    "node_modules/@webcomponents/webcomponentsjs/bundles/*.js"
+    "node_modules/@webcomponents/webcomponentsjs/bundles/*.js",
+    "node_modules/wolfy87-eventemitter/EventEmitter.min.js",
+    "node_modules/soap/dist/soap.js"
   ],
   "builds": [
     {

@@ -26,7 +26,8 @@ setRootPath(MyAppGlobals.rootPath);
 class MyApp extends PolymerElement {
 
  static get template(){
-    return html`
+
+    return html`  
      <my-login></my-login>
     `;
   }
