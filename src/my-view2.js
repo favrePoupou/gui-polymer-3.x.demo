@@ -2,7 +2,7 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import './shared-styles.js';
 
-class Contract extends PolymerElement {
+class MyView2 extends PolymerElement {
   static get template() {
     return html`
       <style include="shared-styles">
@@ -14,7 +14,7 @@ class Contract extends PolymerElement {
       </style>
 
       <div class="card">
-        <div class="circle">3</div>
+        <div class="circle">View 2</div>
         <h1>Contrats</h1>
         <p>Modus commodo minimum eum te, vero utinam assueverit per eu.</p>
         <p>Ea duis bonorum nec, falli paulo aliquid ei eum.Has at minim mucius aliquam, est id tempor laoreet.Pro saepe pertinax ei, ad pri animal labores suscipiantur.</p>
@@ -23,4 +23,4 @@ class Contract extends PolymerElement {
   }
 }
 
-window.customElements.define('my-contract', Contract);
+window.customElements.define('my-view2', MyView2);
