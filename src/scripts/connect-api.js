@@ -15,7 +15,7 @@ export class CreateConnexion {
 	 	
 	 	window.soap.createClient(this.url, function(_, Soap){	 		
 	 		methods = Soap;	 
-	 		console.log('API methods from master branch', methods);	
+	 		console.log('API methods', methods);	
 	 		return methods;			 		
 	 	})
 	 		 	
