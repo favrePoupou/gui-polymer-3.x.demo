@@ -27,7 +27,6 @@ class MyApp extends PolymerElement {
  static get template(){
 
   return html` 
-
   <!-- app-location binds to the app's URL -->
   <app-location route="{{route}}"></app-location>
 

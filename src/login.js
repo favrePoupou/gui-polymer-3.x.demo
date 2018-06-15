@@ -3,7 +3,7 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { CreateConnexion } from './scripts/connect-api.js';
 import { Language } from './scripts/get-language.js';
 import '@polymer/app-route/app-location.js';
-import '@polymer/app-route/app-route.js';
+import '@polymer/app-route/app-location.js';
 import './shared-styles.js';
 import './home.js';
 
@@ -119,8 +119,8 @@ class Login extends PolymerElement {
   }
 }
 </style>   
-<img src="/images/logo_en.png" width="1" height="1" class="center">
-<!-- <iron-image src="/images/logo_en.png"></iron-image> -->
+<img src="/images/logo_en.png" width="1" height="1" class="center"> 
+<!-- <iron-image src="/images/logo_en.png"></iron-image>-->
 <!-- Solve problem of data binding without using <iron-input> : https://www.webcomponents.org/element/PolymerElements/iron-input/demo/demo/index.html -->
 <div class="subscribe-container">
 <div class="mc_embed_signup">
@@ -183,8 +183,8 @@ submit(){
 
  const url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
 
-/* const connect = new CreateConnexion(url).connection;
-console.log('LLLL', connect);*/ 
+const connect = new CreateConnexion(url).connection;
+console.log('LLLL', connect); 
 
 /* Call the object creating the connection to Soap */
 
