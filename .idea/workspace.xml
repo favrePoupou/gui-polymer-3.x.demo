@@ -96,7 +96,6 @@
       <list>
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/login.js" />
-        <option value="$PROJECT_DIR$/src/my-login.js" />
         <option value="$PROJECT_DIR$/src/my-view1.js" />
         <option value="$PROJECT_DIR$/src/company.js" />
         <option value="$PROJECT_DIR$/src/person.js" />
