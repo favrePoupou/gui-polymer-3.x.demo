@@ -202,9 +202,9 @@ submit(){
           let res = JSON.parse(result.item.response);
           let name = res.data.profile.fullname; 
           let token = res.data.token;   
-         /*setTimeout(function(){ 
+         setTimeout(function(){ 
                window.location.href = './home/'  + 'token_id=' + token + '&' + 'name=' + name; // we pass the token and name as parameter and retrieve it in the 2nd page from the url
-            }, 1000); */
+            }, 1000); 
          }
        }); 
       }) 

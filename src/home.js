@@ -93,22 +93,6 @@ listAllMethods(){
  })
 }
 
-/*setContext(){
-  let url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
-  soap.createClient(url ,function(_, Soap) {          
-          console.log('VVV', Soap);
-            soap.set_context({'token': 'cbdf30a2-a14e-4251-b1af-06033ba8dcbf&,cbdf30a2-a14e-4251-b1af-06033ba8dcbf' }, function(err, result){
-              console.log('HEREEEE', result);
-            if(err){
-              console.log('Err', err);
-             }else{
-              console.log('GGGGGG :', result);
-             }
-           })  // setContext           
-        })
-}*/
-
-
 logoutUser(){ 
 
 let url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
