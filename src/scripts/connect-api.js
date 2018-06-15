@@ -13,11 +13,11 @@ export class CreateConnexion {
 	 makeConnexion(){	 	
 	 	let methods = {};	 	
 	 	
-	 	window.soap.createClient(this.url, function(_, Soap){
-	 		console.log('API methods', Soap);	
-	 		methods = Soap;	 		 		
+	 	window.soap.createClient(this.url, function(_, Soap){	 		
+	 		methods = Soap;	 
+	 		console.log('API methods from master branch', methods);	
+	 		return methods;			 		
 	 	})
-
-	 	return methods;		 	
+	 		 	
 	 }
 }

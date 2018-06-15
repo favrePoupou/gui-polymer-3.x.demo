@@ -36,8 +36,8 @@ class Home extends PolymerElement {
    <p class="token">Token : [[token]] </p>
    <button type="button" on-click="logoutUser">Logout</button>  
    <button type="button" on-click="listAllMethods">See api</button> 
-   <button type="button" on-click="setContext">setContext</button> 
-   <!-- <paper-button on-click="logoutUser">Logout</paper-button> -->   
+   <!-- <button type="button" on-click="setContext">setContext</button> -->  
+   <!-- <paper-button class="pink" on-click="logoutUser">Logout</paper-button> --> 
    </div> 
    `;
  }
@@ -71,10 +71,12 @@ getVars() {
 getToken(){
   let tk = {};
 
-      let url = window.location.href; // retrieve url including token
-      let carac = '\=(.*)&';             // define the regex
+      let url = window.location.href;     // retrieve url including token
+      let carac = '\=(.*)&';              // define the regex
       let match = url.match(carac); 
-      // Avoid the calling of empty object at the login.js
+   /*
+   Avoid the calling of empty object at the login.js
+   */
       if(match){
         tk = match[1];      
         return tk ;  
@@ -118,16 +120,13 @@ soap.createClient(url, function(_, soap) {
     if(err){
       console.log('Err', err);
     }else{                 
-      /*setTimeout(function(){ 
+      setTimeout(function(){ 
        window.location.href = './login'
-       }, 1000);  */
+       }, 1000);  
       } 
     })
    }) 
-  } // logout 
-
-
- }  
-
+  } 
+ } 
 
   window.customElements.define('my-home', Home);

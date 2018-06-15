@@ -183,12 +183,10 @@ submit(){
 
  const url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
 
-/* const connect = new CreateConnexion(url).connection;
- console.log('LLLL', connect);*/ 
- 
  /* Call the object creating the connection to Soap */
 
-  
+ const connect = new CreateConnexion(url).connection;
+ console.log('Soap', connect); 
 
     /*  Account available on db :
       * tester@example.com / testing
@@ -204,14 +202,13 @@ submit(){
           let res = JSON.parse(result.item.response);
           let name = res.data.profile.fullname; 
           let token = res.data.token;   
-           console.log('RRRR', token);
-         setTimeout(function(){ 
+         /*setTimeout(function(){ 
                window.location.href = './home/'  + 'token_id=' + token + '&' + 'name=' + name; // we pass the token and name as parameter and retrieve it in the 2nd page from the url
-            }, 1000); 
+            }, 1000); */
          }
        }); 
       }) 
-    } // submit 
+    } 
   } 
 
   window.customElements.define('my-login', Login);
