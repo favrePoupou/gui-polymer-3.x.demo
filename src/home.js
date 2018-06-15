@@ -36,7 +36,7 @@ class Home extends PolymerElement {
    <p class="token">Token : [[token]] </p>
    <button type="button" on-click="logoutUser">Logout</button>  
    <button type="button" on-click="listAllMethods">See api</button> 
-   <button type="button" on-click="setContext">setContext</button> 
+   <!-- <button type="button" on-click="setContext">setContext</button>  -->
    <!-- <paper-button on-click="logoutUser">Logout</paper-button> -->   
    </div> 
    `;
@@ -86,8 +86,17 @@ getToken(){
 
 listAllMethods(){
  let url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=gadmin;version=1.0";
+ let token = this.token;
+ 
  soap.createClient(url, function(_, soap){
   console.log('API methods', soap);
+  soap.create_holiday({'token': token} , function(err, result){
+    if(err){
+      console.log('Error', err);
+    }else{
+      console.log('ALL Messages',result);
+    } 
+   })
  })
 }
 
@@ -124,7 +133,7 @@ soap.createClient(url, function(_, soap) {
       } 
     })
    }) 
-  } // logout 
+  } // logoutUser 
 
 
  }  

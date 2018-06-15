@@ -146,25 +146,25 @@ static get properties() {
   return {     
     username : { type: String, value: 'external@example.com'},
     password : { type: String , value: 'testing'}, 
-       
+
 // Later on using I18N
-    _locales: {
-      type:  Object,
-      value: {
-        en: {
-          title:    'Authentification …',
-          username: 'Username',
-          password: 'Password',
-          confirm:  'OK',
-        },
-        fr: {
-          title:    'Authentification …',
-          username: 'Nom d\'utilisateur',
-          password: 'Mot de passe',
-          confirm:  'OK',
-        },
-      }
+_locales: {
+  type:  Object,
+  value: {
+    en: {
+      title:    'Authentification …',
+      username: 'Username',
+      password: 'Password',
+      confirm:  'OK',
+    },
+    fr: {
+      title:    'Authentification …',
+      username: 'Nom d\'utilisateur',
+      password: 'Mot de passe',
+      confirm:  'OK',
+    },
   }
+}
  } // return
 } // get properties
 
@@ -184,32 +184,32 @@ submit(){
  const url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
 
 /* const connect = new CreateConnexion(url).connection;
- console.log('LLLL', connect);*/ 
- 
- /* Call the object creating the connection to Soap */
+console.log('LLLL', connect);*/ 
 
-  
+/* Call the object creating the connection to Soap */
 
-    /*  Account available on db :
+
+
+     /*  Account available on db :
       * tester@example.com / testing
       * external@example.com / testing
       */
 
 
-    soap.createClient(url ,function(_, soap) {
-      soap.login({'username': username ,'password': password}, function(err, result) {      
-        if(err){
-          console.log('Err', err);
-        }else{
-          let res = JSON.parse(result.item.response);
-          let name = res.data.profile.fullname; 
-          let token = res.data.token;   
-           console.log('RRRR', token);
-         setTimeout(function(){ 
+      soap.createClient(url ,function(_, soap) {
+        soap.login({'username': username ,'password': password}, function(err, result) {      
+          if(err){
+            console.log('Err', err);
+          }else{
+            let res = JSON.parse(result.item.response);
+            let name = res.data.profile.fullname; 
+            let token = res.data.token;   
+            console.log('Token :', token);
+            setTimeout(function(){ 
                window.location.href = './home/'  + 'token_id=' + token + '&' + 'name=' + name; // we pass the token and name as parameter and retrieve it in the 2nd page from the url
-            }, 1000); 
-         }
-       }); 
+             }, 1000); 
+          }
+        }); 
       }) 
     } // submit 
   } 
