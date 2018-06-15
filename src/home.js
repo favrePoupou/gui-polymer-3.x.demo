@@ -35,8 +35,8 @@ class Home extends PolymerElement {
    <p class="lang">Langue préferée : [[lang]] </p>
    <p class="token">Token : [[token]] </p>
    <button type="button" on-click="logoutUser">Logout</button>  
-   <button type="button" on-click="listAllMethods">See api</button> 
-   <!-- <button type="button" on-click="setContext">setContext</button>  -->
+   <button type="button" on-click="setContext">setContext</button>
+   <button type="button" on-click="listAllMethods">See api</button>     
    <!-- <paper-button on-click="logoutUser">Logout</paper-button> -->   
    </div> 
    `;
@@ -52,11 +52,14 @@ class Home extends PolymerElement {
  };   
 } 
 
+
 constructor() {
   super();   
   this.token = this.getToken();
   this.lang = new Language().returnLanguage;
   this.username = this.getVars()["name"];
+  this.urlGadmin = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=gadmin;version=1.0";
+  this.urlDoorman = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
 }   
 
 getVars() {
@@ -84,59 +87,55 @@ getToken(){
     }
 
 
-listAllMethods(){
- let url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=gadmin;version=1.0";
- let token = this.token;
- 
- soap.createClient(url, function(_, soap){
-  console.log('API methods', soap);
-  soap.create_holiday({'token': token} , function(err, result){
-    if(err){
-      console.log('Error', err);
-    }else{
-      console.log('ALL Messages',result);
-    } 
-   })
- })
-}
+    listAllMethods(){ 
 
-/*setContext(){
-  let url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
-  soap.createClient(url ,function(_, Soap) {          
-          console.log('VVV', Soap);
-            soap.set_context({'token': 'cbdf30a2-a14e-4251-b1af-06033ba8dcbf&,cbdf30a2-a14e-4251-b1af-06033ba8dcbf' }, function(err, result){
-              console.log('HEREEEE', result);
-            if(err){
-              console.log('Err', err);
-             }else{
-              console.log('GGGGGG :', result);
-             }
-           })  // setContext           
-        })
-}*/
+      let url = this.urlGadmin; 
 
+      soap.createClient(url, function(_, soap){
+        console.log('All API methods', soap);   
+      }) 
+    }
 
-logoutUser(){ 
+    setContext(){
 
-let url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
-let token_id = this.token;
+     let token = this.token;
+     let url = this.urlDoorman; 
 
-soap.createClient(url, function(_, soap) {      
-  soap.logout({'token': token_id} , function(err, result){
-    console.log('Kill the token',result);
-    if(err){
-      console.log('Err', err);
-    }else{                 
-      /*setTimeout(function(){ 
-       window.location.href = './login'
-       }, 1000);  */
-      } 
+     soap.createClient(url, function(_, soap){
+      console.log('Doorman methods', soap);
+      soap.set_context({'token': token} , function(err, result){
+        if(err){
+          console.log('Error', err);
+        }else{
+          console.log('Set_Context function :',result);
+        } 
+      })  
     })
-   }) 
+   }
+
+
+   logoutUser(){ 
+
+    let token = this.token;
+    let url = this.urlDoorman; 
+    
+
+    soap.createClient(url, function(_, soap) {      
+      soap.logout({'token': token} , function(err, result){
+        console.log('Kill the token',result);
+        if(err){
+          console.log('Err', err);
+        }else{                 
+          setTimeout(function(){ 
+           window.location.href = './login'
+         }, 1000);  
+        } 
+      })
+    }) 
   } // logoutUser 
 
 
- }  
+}  
 
 
-  window.customElements.define('my-home', Home);
+window.customElements.define('my-home', Home);
