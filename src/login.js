@@ -3,12 +3,10 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { CreateConnexion } from './scripts/connect-api.js';
 import { Language } from './scripts/get-language.js';
 import '@polymer/app-route/app-location.js';
-import '@polymer/app-route/app-location.js';
 import './shared-styles.js';
 import './home.js';
 
-
-class Login extends PolymerElement {
+export class Login extends PolymerElement {
   static get template() {
     return html`
     <style include="shared-styles">
@@ -135,60 +133,60 @@ class Login extends PolymerElement {
 <input type="password" value="{{ password::input }}" placeholder="Mot de passe" name="password" class="required password" id="pwd">
 <!-- <iron-input type="password" value="{{ password::input }}" placeholder="Mot de passe" name="password" class="required password" id="pwd""> -->
 </div>
-<button type="button" on-click="submit">Ok</button>                         
+<!-- <paper-checkbox>Accepte les conditions</paper-checkbox> -->
+<button class="btn success" type="button" on-click="submit">Ok</button>                    
 </div>
 </form>    
 </div>
+
+
+
 `;
 }
+
 
 static get properties() {
   return {     
     username : { type: String, value: 'external@example.com'},
     password : { type: String , value: 'testing'}, 
+    
 
 // Later on using I18N
-_locales: {
-  type:  Object,
-  value: {
-    en: {
-      title:    'Authentification …',
-      username: 'Username',
-      password: 'Password',
-      confirm:  'OK',
-    },
-    fr: {
-      title:    'Authentification …',
-      username: 'Nom d\'utilisateur',
-      password: 'Mot de passe',
-      confirm:  'OK',
-    },
+  _locales: {
+    type:  Object,
+    value: {
+      en: {
+        title:    'Authentification …',
+        username: 'Username',
+        password: 'Password',
+        confirm:  'OK',
+      },
+      fr: {
+        title:    'Authentification …',
+        username: 'Nom d\'utilisateur',
+        password: 'Mot de passe',
+        confirm:  'OK',
+      },
+    }
   }
-}
  } // return
 } // get properties
 
 
 
 constructor() {
-  super();     
-  
+  super();      
 }
 
+
 submit(){  
-
  const username = this.username;
- const password = this.password;
- 
-
+ const password = this.password;  
  const url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
+ const connect = new CreateConnexion(url).connexion;
+ console.log('KKKK', connect); 
 
-const connect = new CreateConnexion(url).connection;
-console.log('LLLL', connect); 
-
-/* Call the object creating the connection to Soap */
-
-
+ /* Call the object creating the connection to Soap */
 
      /*  Account available on db :
       * tester@example.com / testing
@@ -205,9 +203,9 @@ console.log('LLLL', connect);
             let name = res.data.profile.fullname; 
             let token = res.data.token;   
             console.log('Token :', token);
-            setTimeout(function(){ 
+            /*setTimeout(function(){ 
                window.location.href = './home/'  + 'token_id=' + token + '&' + 'name=' + name; // we pass the token and name as parameter and retrieve it in the 2nd page from the url
-             }, 1000); 
+             }, 1000);*/ 
           }
         }); 
       }) 

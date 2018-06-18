@@ -4,7 +4,7 @@ import { Language } from './scripts/get-language.js';
 import './login.js';
 import './shared-styles.js';
 
-class Home extends PolymerElement {
+export class Home extends PolymerElement {
   static get template() {
     return html`
 
@@ -34,11 +34,13 @@ class Home extends PolymerElement {
    <h1 class="name">Nom : [[username]] </h1>
    <p class="lang">Langue préferée : [[lang]] </p>
    <p class="token">Token : [[token]] </p>
-   <button type="button" on-click="logoutUser">Logout</button>  
-   <button type="button" on-click="setContext">setContext</button>
-   <button type="button" on-click="listAllMethods">See api</button>     
-   <!-- <paper-button on-click="logoutUser">Logout</paper-button> -->   
+   <button class="btn danger" type="button" on-click="logoutUser">Logout</button>
+   <button class="btn info" type="button" on-click="setContext">Set Context</button>  
+   <button class="btn success" type="button" on-click="listAllMethods">See Api</button>
+   
    </div> 
+
+
    `;
  }
 
@@ -71,33 +73,31 @@ getVars() {
 }
 
 
-getToken(){
-  let tk = {};
+  getToken(){
+    let tk = {};
 
-      let url = window.location.href; // retrieve url including token
-      let carac = '\=(.*)&';             // define the regex
-      let match = url.match(carac); 
-      // Avoid the calling of empty object at the login.js
-      if(match){
-        tk = match[1];      
-        return tk ;  
-      }else{
-        tk = {};
-      }          
-    }
+        let url = window.location.href; // retrieve url including token
+        let carac = '\=(.*)&';             // define the regex
+        let match = url.match(carac); 
+        // Avoid the calling of empty object at the login.js
+        if(match){
+          tk = match[1];      
+          return tk ;  
+        }else{
+          tk = {};
+        }          
+      }
 
 
     listAllMethods(){ 
-
       let url = this.urlGadmin; 
 
       soap.createClient(url, function(_, soap){
-        console.log('All API methods', soap);   
+      console.log('All API methods', soap);   
       }) 
     }
 
     setContext(){
-
      let token = this.token;
      let url = this.urlDoorman; 
 
@@ -113,12 +113,9 @@ getToken(){
     })
    }
 
-
    logoutUser(){ 
-
     let token = this.token;
     let url = this.urlDoorman; 
-    
 
     soap.createClient(url, function(_, soap) {      
       soap.logout({'token': token} , function(err, result){
