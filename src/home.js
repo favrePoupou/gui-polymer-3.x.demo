@@ -1,6 +1,7 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { Language } from './scripts/get-language.js';
+import { CreateConnexion } from './scripts/connect-api.js';
 import './login.js';
 import './shared-styles.js';
 
@@ -37,7 +38,7 @@ export class Home extends PolymerElement {
    <button class="btn danger" type="button" on-click="logoutUser">Logout</button>
    <button class="btn info" type="button" on-click="setContext">Set Context</button>  
    <button class="btn success" type="button" on-click="listAllMethods">See Api</button>
-   
+   <button class="btn default" type="button" on-click="callApi">Call Api fct</button>
    </div> 
 
 
@@ -73,27 +74,40 @@ getVars() {
 }
 
 
-  getToken(){
-    let tk = {};
+getToken(){
+  let tk = {};
+    let url = window.location.href; // retrieve url including token
+    let carac = '\=(.*)&';             // define the regex
+    let match = url.match(carac); 
+    // Avoid the calling of empty object at the login.js
+    if(match){
+      tk = match[1];      
+      return tk ;  
+    }else{
+      tk = {};
+    }          
+  }
 
-        let url = window.location.href; // retrieve url including token
-        let carac = '\=(.*)&';             // define the regex
-        let match = url.match(carac); 
-        // Avoid the calling of empty object at the login.js
-        if(match){
-          tk = match[1];      
-          return tk ;  
-        }else{
-          tk = {};
-        }          
-      }
 
+  listAllMethods(){ 
+    let url = this.urlGadmin; 
+     new CreateConnexion(url).connexion().then(function(soap){
+       console.log('All Api methods', soap);
+     })
+  }
 
-    listAllMethods(){ 
-      let url = this.urlGadmin; 
+  callApi(){
+      let url = this.urlGadmin;
+      let token = this.token;
 
-      soap.createClient(url, function(_, soap){
-      console.log('All API methods', soap);   
+    new CreateConnexion(url).connexion().then(function(soap){
+        soap.get_branches({'token': token} , function(err, result){
+          if(err){
+            console.log('Error', err);
+          }else{
+            console.log('create_holiday function :',result);
+          } 
+        }) 
       }) 
     }
 
@@ -101,23 +115,22 @@ getVars() {
      let token = this.token;
      let url = this.urlDoorman; 
 
-     soap.createClient(url, function(_, soap){
-      console.log('Doorman methods', soap);
-      soap.set_context({'token': token} , function(err, result){
+      new CreateConnexion(url).connexion().then(function(soap){
+        soap.set_context({'token': token} , function(err, result){
         if(err){
           console.log('Error', err);
         }else{
           console.log('Set_Context function :',result);
         } 
-      })  
-    })
-   }
+      })
+     }) 
+    }
 
    logoutUser(){ 
     let token = this.token;
     let url = this.urlDoorman; 
 
-    soap.createClient(url, function(_, soap) {      
+    new CreateConnexion(url).connexion().then(function(soap){    
       soap.logout({'token': token} , function(err, result){
         console.log('Kill the token',result);
         if(err){
@@ -128,10 +141,8 @@ getVars() {
          }, 1000);  
         } 
       })
-    }) 
-  } // logoutUser 
-
-
+    })
+  } 
 }  
 
 

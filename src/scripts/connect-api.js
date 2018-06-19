@@ -6,17 +6,16 @@ export class CreateConnexion {
 		this.url = url;
 	}
 
-	get connexion() {
-		return this.makeConnexion();
+	async connexion() {
+		let result = await this.makeConnexion();
+		return result;		
 	}
 
-	makeConnexion(){	 	
-		let methods = {};
+	async makeConnexion(){	
+		return new Promise(resolve => {
 		window.soap.createClient(this.url, function(err, Soap){	
-			methods = Soap;	
-			console.log('API methods', methods);
-			
-		})
-		return this.methods;
+			 resolve(Soap);									 			
+			})
+		})	
 	}
 }

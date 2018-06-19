@@ -1,6 +1,7 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { CreateConnexion } from './scripts/connect-api.js';
+import { Test } from './scripts/test.js';
 import { Language } from './scripts/get-language.js';
 import '@polymer/app-route/app-location.js';
 import './shared-styles.js';
@@ -152,64 +153,61 @@ static get properties() {
     
 
 // Later on using I18N
-  _locales: {
-    type:  Object,
-    value: {
-      en: {
-        title:    'Authentification …',
-        username: 'Username',
-        password: 'Password',
-        confirm:  'OK',
-      },
-      fr: {
-        title:    'Authentification …',
-        username: 'Nom d\'utilisateur',
-        password: 'Mot de passe',
-        confirm:  'OK',
-      },
-    }
+_locales: {
+  type:  Object,
+  value: {
+    en: {
+      title:    'Authentification …',
+      username: 'Username',
+      password: 'Password',
+      confirm:  'OK',
+    },
+    fr: {
+      title:    'Authentification …',
+      username: 'Nom d\'utilisateur',
+      password: 'Mot de passe',
+      confirm:  'OK',
+    },
   }
+}
  } // return
 } // get properties
 
 
 
 constructor() {
-  super();      
+  super();    
+  this.urlDoorman = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";  
 }
 
 
 submit(){  
- const username = this.username;
- const password = this.password;  
- const url = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
- const connect = new CreateConnexion(url).connexion;
- console.log('KKKK', connect); 
+ let username = this.username;
+ let password = this.password;  
+ let url = this.urlDoorman;
 
  /* Call the object creating the connection to Soap */
+/*  Account available on db for testing the authentication :
+    * tester@example.com / testing
+    * external@example.com / testing
+    */ 
 
-     /*  Account available on db :
-      * tester@example.com / testing
-      * external@example.com / testing
-      */
-
-
-      soap.createClient(url ,function(_, soap) {
-        soap.login({'username': username ,'password': password}, function(err, result) {      
-          if(err){
-            console.log('Err', err);
-          }else{
-            let res = JSON.parse(result.item.response);
-            let name = res.data.profile.fullname; 
-            let token = res.data.token;   
-            console.log('Token :', token);
-            /*setTimeout(function(){ 
+    new CreateConnexion(url).connexion().then(function(soap){
+     soap.login({'username': username ,'password': password}, function(err, result) {      
+      if(err){
+        console.log('Err', err);
+      }else{
+        let res = JSON.parse(result.item.response);
+        let name = res.data.profile.fullname; 
+        let token = res.data.token;   
+        console.log('Token :', token);
+        setTimeout(function(){ 
                window.location.href = './home/'  + 'token_id=' + token + '&' + 'name=' + name; // we pass the token and name as parameter and retrieve it in the 2nd page from the url
-             }, 1000);*/ 
-          }
-        }); 
-      }) 
-    } // submit 
+             }, 1000); 
+      }
+    }); 
+   })           
   } 
+} 
 
-  window.customElements.define('my-login', Login);
+window.customElements.define('my-login', Login);
