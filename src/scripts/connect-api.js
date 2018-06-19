@@ -11,7 +11,7 @@ export class CreateConnexion {
 		return result;		
 	}
 
-	async makeConnexion(){	
+	makeConnexion(){	
 		return new Promise(resolve => {
 		window.soap.createClient(this.url, function(err, Soap){	
 			 resolve(Soap);									 			
