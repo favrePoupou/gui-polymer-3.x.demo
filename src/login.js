@@ -1,15 +1,27 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { CreateConnexion } from './scripts/connect-api.js';
-import { Test } from './scripts/test.js';
-import { Language } from './scripts/get-language.js';
+
+import '@polymer/paper-checkbox/paper-checkbox.js';
 import '@polymer/app-route/app-location.js';
+
+import { CreateConnexion } from './scripts/connect-api.js';
+import { Language } from './scripts/get-language.js';
+import { Test } from './scripts/test.js';
+
 import './shared-styles.js';
 import './home.js';
 
 export class Login extends PolymerElement {
   static get template() {
     return html`
+     <!-- 
+     <link rel="import" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+     <link rel="import" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js">       
+     <link rel="stylesheet" href="/node_modules/material-design-lite/material.min.css">
+     <script src="/node_modules/material-design-lite/material.min.js"></script>
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
+     -->
+
     <style include="shared-styles">
     *//* Change placeholder text inside inputs *//*
     ::-webkit-input-placeholder {
@@ -134,14 +146,17 @@ export class Login extends PolymerElement {
 <input type="password" value="{{ password::input }}" placeholder="Mot de passe" name="password" class="required password" id="pwd">
 <!-- <iron-input type="password" value="{{ password::input }}" placeholder="Mot de passe" name="password" class="required password" id="pwd""> -->
 </div>
-<!-- <paper-checkbox>Accepte les conditions</paper-checkbox> -->
 <button class="btn success" type="button" on-click="submit">Ok</button>                    
 </div>
+<paper-checkbox checked="{{liked}}">Accepter les conditions</paper-checkbox>
+ <div hidden$="[[!liked]]" class="response">Merci</div>
 </form>    
 </div>
 
-
-
+<!-- Accent-colored raised button with ripple -->
+<!-- <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+  Button
+</button>-->
 `;
 }
 
@@ -150,6 +165,7 @@ static get properties() {
   return {     
     username : { type: String, value: 'external@example.com'},
     password : { type: String , value: 'testing'}, 
+    liked: { type: Boolean },
     
 
 // Later on using I18N

@@ -14,8 +14,7 @@ import '@polymer/paper-icon-button/paper-icon-button.js';
 import './my-icons.js';
 import './shared-styles.js';
 import './login.js';
-
-
+//import './password/my-password.js';
 
 // Gesture events like tap and track generated from touch will not be
 // preventable, allowing for better scrolling performance.
@@ -51,7 +50,7 @@ class MyApp extends PolymerElement {
   <my-view2 name="view2" route="{{subroute}}"></my-view2>
   <my-view3 name="view3" route="{{subroute}}"></my-view3>
   <my-view404 name="view404" route="{{subroute}}"></my-view404>
-  </iron-pages>
+  </iron-pages> 
   `;
 }
 
@@ -64,16 +63,16 @@ static get observers() {
 
 _routeChanged(changeRecord) {
   if (changeRecord.path === 'path') {
-    console.log('Path changed!');
   }
 }
+
 _viewChanged(view) {
   switch (view) {  
     case '/':
-    import('./my-login.js');
+    import('./login.js');
     break; 
-    case '/login':
-    import('./my-login.js');
+    case 'login':
+    import('./login.js');
     break;    
     case 'view1':
     import('./my-view1.js');
@@ -86,7 +85,7 @@ _viewChanged(view) {
     break;
     case 'view404':
     import('./my-view404.js');
-    break;
+    break;    
   }
 }
 

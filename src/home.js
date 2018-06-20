@@ -100,7 +100,7 @@ getToken(){
       let url = this.urlGadmin;
       let token = this.token;
 
-    new CreateConnexion(url).connexion().then(function(soap){
+       new CreateConnexion(url).connexion().then(function(soap){
         soap.get_branches({'token': token} , function(err, result){
           if(err){
             console.log('Error', err);
