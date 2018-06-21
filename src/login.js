@@ -119,14 +119,14 @@ export class Login extends PolymerElement {
 <div class="subscribe-container">
 <div class="mc_embed_signup">
 <h3>Mot de passe</h3>
-<form>
 <div id="mc_embed_signup_scroll">
 <div class="mc-field-group">
-<input type="password" value="{{ password::input }}" placeholder="Insérer votre mot de passe" name="password" class="required password" id="pwd">              
+<!-- <input type="password" value="{{ password::input }}" on-keypress="onpressEnter" placeholder="Insérer votre mot de passe" name="password" class="required password" id="pwd"> -->
+<input type="password" value="{{ password::input }}"  placeholder="Insérer votre mot de passe" name="password" class="required password" id="pwd">              
 </div>          
 <button class="btn primary" type="button" on-click="submit">Se connecter</button>                    
 </div>              
-</form>    
+   
 </div>
 </div>    
 `;
@@ -159,13 +159,20 @@ getUsername() {
     } 
 }
 
+onpressEnter(e){
+  if(e.key === "Enter"){  
+  // manage the enter press here
+ }          
+}
+
 submit(){  
 
   let url = this.urlDoorman;
   let username = this.username;  
-  let password = this.password;   
+  let password = this.password; 
+  
   username = username.replace("-",".");   
-
+  
   new CreateConnexion(url).connexion().then(function(soap){
      soap.login({'username': username ,'password': password}, function(err, result) {      
       if(err){

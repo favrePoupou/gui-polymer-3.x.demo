@@ -7,7 +7,7 @@ import './login.js';
 import './home.js';
 
 export class User extends PolymerElement {
-	static get template() {
+  static get template() {
     return html` 
     <style include="shared-styles">
     *//* Change placeholder text inside inputs *//*
@@ -114,43 +114,60 @@ export class User extends PolymerElement {
 <div class="subscribe-container">
 <div class="mc_embed_signup">
 <h3>Nom d'utilisateur</h3>
-<form>
 <div id="mc_embed_signup_scroll">
 <div class="mc-field-group">
-<input type="text" value="{{ username::input }}" placeholder="Courriel ou telephone" name="username" autocomplete="off" class="required" id="uname">
+<input type="text" value="{{ username::input }}" on-keypress="onpressEnter" placeholder="Courriel ou telephone" name="username" autocomplete="off" class="required" id="uname">
 <!-- <iron-input type="text" value="{{ username::input }}" placeholder="Nom utilisateur" name="username" class="required" id="uname"> -->
-</div>					
+</div>          
 <button class="btn primary" type="button" on-click="nextStep">Suivant</button>                    
 </div>
 <paper-checkbox checked="{{liked}}">Se souvenir de moi</paper-checkbox>
-<div hidden$="[[!liked]]" class="response">Merci</div>
-</form>    
+<div hidden$="[[!liked]]" class="response">Merci</div> 
 </div>
 </div>
 `;
 }
 
 static get properties(){
-	return {
-   username : { type: String }
+  return {
+   username : { type: String },
  }
 }
 
 constructor(){
- super();
+ super(); 
 }
 
-/* Path is not handled correctly when a dot (.) is in path (Polymer issue)
+
+
+/* replace (.) by (-) Path is not handled correctly when a dot (.) is in path (Polymer issue)
    https://github.com/Polymer/polyserve/issues/147
 */
+
+onpressEnter(e){
+  if(e.key === "Enter"){   
+   let username = this.username;
+   username = username.replace('.','-'); 
+   setTimeout(function(){ 
+         window.location.href = './login/' + 'name=' + username; 
+       }, 0);     
+    }
+ }
+
+
 nextStep(){
   let username = this.username;
-  username = username.replace(".","-");
-  // replace (.) by (-)   
+  username = username.replace('.','-');    
   setTimeout(function(){ 
                window.location.href = './login/' + 'name=' + username; 
              }, 1000);  
   }
+
 } 
 
 window.customElements.define('my-user', User);
+
+
+//http://localhost:8081/login/name=external@example-com?password=testing
+
+//http://localhost:8081/login/name=external@example-com
