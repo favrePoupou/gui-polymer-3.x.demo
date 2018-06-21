@@ -54,6 +54,10 @@ h1 {
 .default {background-color: #e7e7e7; color: black;} /* Gray */ 
 .default:hover {background: #ddd;}
 
+.primary {background-color: #190ec7;} /* Grey */ 
+.primary:hover {background: #75729e;}
+
+
 
 </style>
 </template>

@@ -1,19 +1,14 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
-import '@polymer/paper-checkbox/paper-checkbox.js';
 import '@polymer/app-route/app-location.js';
-
-import { CreateConnexion } from './scripts/connect-api.js';
-import { Language } from './scripts/get-language.js';
-import { Test } from './scripts/test.js';
-
 import './shared-styles.js';
+import './login.js';
 import './home.js';
 
-export class Login extends PolymerElement {
-  static get template() {
-    return html`    
+export class User extends PolymerElement {
+	static get template() {
+    return html` 
     <style include="shared-styles">
     *//* Change placeholder text inside inputs *//*
     ::-webkit-input-placeholder {
@@ -118,72 +113,44 @@ export class Login extends PolymerElement {
 <img src="/images/logo_en.png" width="1" height="1" class="center"> 
 <div class="subscribe-container">
 <div class="mc_embed_signup">
-<h3>Mot de passe</h3>
+<h3>Nom d'utilisateur</h3>
 <form>
 <div id="mc_embed_signup_scroll">
 <div class="mc-field-group">
-<input type="password" value="{{ password::input }}" placeholder="Insérer votre mot de passe" name="password" class="required password" id="pwd">              
-</div>          
-<button class="btn primary" type="button" on-click="submit">Se connecter</button>                    
-</div>              
+<input type="text" value="{{ username::input }}" placeholder="Courriel ou telephone" name="username" autocomplete="off" class="required" id="uname">
+<!-- <iron-input type="text" value="{{ username::input }}" placeholder="Nom utilisateur" name="username" class="required" id="uname"> -->
+</div>					
+<button class="btn primary" type="button" on-click="nextStep">Suivant</button>                    
+</div>
+<paper-checkbox checked="{{liked}}">Se souvenir de moi</paper-checkbox>
+<div hidden$="[[!liked]]" class="response">Merci</div>
 </form>    
 </div>
-</div>    
+</div>
 `;
 }
 
-static get properties() {
-  return {     
-   username : { type: String }, 
-   password : { type: String }
-  } 
+static get properties(){
+	return {
+   username : { type: String }
+ }
+}
+
+constructor(){
+ super();
+}
+
+/* Path is not handled correctly when a dot (.) is in path (Polymer issue)
+   https://github.com/Polymer/polyserve/issues/147
+*/
+nextStep(){
+  let username = this.username;
+  username = username.replace(".","-");
+  // replace (.) by (-)   
+  setTimeout(function(){ 
+               window.location.href = './login/' + 'name=' + username; 
+             }, 1000);  
+  }
 } 
 
-constructor() {
-  super();     
-   this.urlDoorman = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1"; 
-   this.username = this.getUsername() ;
-}
-
-getUsername() {  
-  let vars = {};  
-  let url = window.location.href;
-  let carac = '(?<=name=).*' ;
-  let match = url.match(carac);
-
-   if(match){
-      vars = match[0];      
-      return vars ;  
-    }else{
-      vars = {};
-    } 
-}
-
-submit(){  
-
-  let url = this.urlDoorman;
-  let username = this.username;  
-  let password = this.password;   
-  username = username.replace("-",".");   
-
-  new CreateConnexion(url).connexion().then(function(soap){
-     soap.login({'username': username ,'password': password}, function(err, result) {      
-      if(err){
-        console.log('Err', err);
-      }else{
-        let res = JSON.parse(result.item.response);
-        let name = res.data.profile.fullname; 
-        let token = res.data.token;   
-        console.log('Token :', token);
-        setTimeout(function(){ 
-               window.location.href = './home/'  + 'token_id=' + token + '&' + 'name=' + name; // we pass the token and name as parameter and retrieve it in the 2nd page from the url
-             }, 1000); 
-      }
-    }); 
-   })
-}
-
-
-}
-
-window.customElements.define('my-login', Login);
+window.customElements.define('my-user', User);

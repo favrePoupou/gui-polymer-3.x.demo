@@ -137,7 +137,7 @@ getToken(){
           console.log('Err', err);
         }else{                 
           setTimeout(function(){ 
-           window.location.href = './login'
+           window.location.href = './user'
          }, 1000);  
         } 
       })
