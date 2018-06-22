@@ -182,6 +182,13 @@ submit(){
         let name = res.data.profile.fullname; 
         let token = res.data.token;   
         console.log('Token :', token);
+        soap.set_context({'token': token} , function(err, result){
+        if(err){
+          console.log('Error', err);
+        }else{
+          console.log('Set_Context :',result);
+        } 
+      })        
         setTimeout(function(){ 
                window.location.href = './home/'  + 'token_id=' + token + '&' + 'name=' + name; // we pass the token and name as parameter and retrieve it in the 2nd page from the url
              }, 1000); 
