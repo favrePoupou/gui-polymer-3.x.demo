@@ -24,12 +24,11 @@ export class Home extends PolymerElement {
    .user-title{
      text-align:center
    }
-
+ 
    </style>
 
-
+   
    <h2 class="user-title">User</h2>
-
    <div class="card">
    <div class="circle"></div>
    <h1 class="name">Nom : [[username]] </h1>
@@ -38,9 +37,10 @@ export class Home extends PolymerElement {
    <button class="btn danger" type="button" on-click="logoutUser">Logout</button>
    <button class="btn info" type="button" on-click="setContext">Set Context</button>  
    <button class="btn success" type="button" on-click="listAllMethods">See Api</button>
-   <button class="btn default" type="button" on-click="callApi">Call Api fct</button>
-   </div> 
-
+   <button class="btn default" type="button" on-click="callApi">Call Api fct</button>   
+   <!-- <button class="btn danger" type="button" on-click="lockPage">Lock</button> -->
+   </div>  
+   
 
    `;
  }
@@ -51,7 +51,8 @@ export class Home extends PolymerElement {
   return {
    tk: { type: String },
    lang: { type: String },
-   username: { type: String }
+   username: { type: String },
+   demo : { type: String },
  };   
 } 
 
@@ -63,6 +64,8 @@ constructor() {
   this.username = this.getVars()["name"];
   this.urlGadmin = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=gadmin;version=1.0";
   this.urlDoorman = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
+  this.urlGui = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=gui;version=1.0";
+  this.urlHelloworld = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=helloworld;version=1.0";
 }   
 
 getVars() {
@@ -89,6 +92,11 @@ getToken(){
   }
 
 
+  lockPage(){
+    console.log('Lock is called');
+  }
+
+
   listAllMethods(){ 
     let url = this.urlGadmin; 
      new CreateConnexion(url).connexion().then(function(soap){
@@ -97,30 +105,54 @@ getToken(){
   }
 
   callApi(){
-      let url = this.urlGadmin;
-      let token = this.token;
+     //let url = this.urlGui;
+     let url = this.urlGadmin;
+     //let url = this.urlHelloworld;
+     let token = this.token;
 
        new CreateConnexion(url).connexion().then(function(soap){
+        //from gadmin
         soap.get_branches({'token': token} , function(err, result){
           if(err){
             console.log('Error', err);
           }else{
             console.log('create_holiday function :',result);
           } 
-        }) 
+        })        
+
+         // from gui
+        /*soap.get_parent_companies({'token': token} , function(err, result){
+          if(err){
+            console.log('ERR',err);
+          }else{
+            console.log('AAAA', result);
+          }          
+        })*/
+
+        // from helloworld
+        /*soap.raise_server_error({'token': token} , function(err, result){
+          if(err){
+            console.log('ERR',err);
+          }else{
+            console.log('From HelloWorld', result);
+          }          
+        })*/
+
+
       }) 
     }
 
     setContext(){
      let token = this.token;
-     let url = this.urlDoorman; 
+     let url = this.urlDoorman;      
 
       new CreateConnexion(url).connexion().then(function(soap){
+        // from doorman
         soap.set_context({'token': token} , function(err, result){
         if(err){
           console.log('Error', err);
         }else{
-          console.log('Set_Context function :',result);
+          console.log('Set_Context function :', JSON.stringify(result));
         } 
       })
      }) 
@@ -137,13 +169,13 @@ getToken(){
           console.log('Err', err);
         }else{                 
           setTimeout(function(){ 
-           window.location.href = './login'
+           window.location.href = './user'
          }, 1000);  
         } 
       })
     })
   } 
-}  
 
+}  
 
 window.customElements.define('my-home', Home);

@@ -1,10 +1,10 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
-import '@polymer/paper-checkbox/paper-checkbox.js';
 import '@polymer/app-route/app-location.js';
 
 import { CreateConnexion } from './scripts/connect-api.js';
+import { Counter } from './scripts/counter.js';
 import { Language } from './scripts/get-language.js';
 import { Test } from './scripts/test.js';
 
@@ -124,7 +124,8 @@ export class Login extends PolymerElement {
 <!-- <input type="password" value="{{ password::input }}" on-keypress="onpressEnter" placeholder="Insérer votre mot de passe" name="password" class="required password" id="pwd"> -->
 <input type="password" value="{{ password::input }}"  placeholder="Insérer votre mot de passe" name="password" class="required password" id="pwd">              
 </div>          
-<button class="btn primary" type="button" on-click="submit">Se connecter</button>                    
+<button class="btn primary" type="button" on-click="submit">Se connecter</button>  
+<button class="btn default" type="button" on-click="callCounter">Time</button>                   
 </div>              
    
 </div>
@@ -197,6 +198,11 @@ submit(){
    })
 }
 
+callCounter(){
+ new Counter().countLock().then(function(result){
+  console.log('DATE NOW', result);
+ })
+}
 
 }
 

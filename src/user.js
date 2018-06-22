@@ -5,6 +5,7 @@ import '@polymer/app-route/app-location.js';
 import './shared-styles.js';
 import './login.js';
 import './home.js';
+//import './password/demo/index.html'
 
 export class User extends PolymerElement {
   static get template() {
@@ -109,7 +110,6 @@ export class User extends PolymerElement {
   }
 }
 </style>  
-
 <img src="/images/logo_en.png" width="1" height="1" class="center"> 
 <div class="subscribe-container">
 <div class="mc_embed_signup">
@@ -168,6 +168,3 @@ nextStep(){
 window.customElements.define('my-user', User);
 
 
-//http://localhost:8081/login/name=external@example-com?password=testing
-
-//http://localhost:8081/login/name=external@example-com
