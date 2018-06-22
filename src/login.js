@@ -134,59 +134,59 @@ export class Login extends PolymerElement {
 
 static get properties() {
   return {     
-   username : { type: String }, 
+   username : { type: String },
    password : { type: String }
-  } 
-} 
+  }
+}
 
 constructor() {
   super();     
-   this.urlDoorman = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1"; 
+   this.urlDoorman = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
    this.username = this.getUsername() ;
 }
 
-getUsername() {  
-  let vars = {};  
+getUsername() {
+  let vars = {};
   let url = window.location.href;
   let carac = '(?<=name=).*' ;
   let match = url.match(carac);
 
    if(match){
-      vars = match[0];      
-      return vars ;  
+      vars = match[0];
+      return vars ;
     }else{
       vars = {};
-    } 
+    }
 }
 
 onpressEnter(e){
-  if(e.key === "Enter"){  
+  if(e.key === "Enter"){
   // manage the enter press here
- }          
+ }
 }
 
 submit(){  
 
   let url = this.urlDoorman;
-  let username = this.username;  
-  let password = this.password; 
+  let username = this.username;
+  let password = this.password;
   
-  username = username.replace("-",".");   
+  username = username.replace("-",".");
   
   new CreateConnexion(url).connexion().then(function(soap){
-     soap.login({'username': username ,'password': password}, function(err, result) {      
+     soap.login({'username': username ,'password': password}, function(err, result) {
       if(err){
         console.log('Err', err);
       }else{
         let res = JSON.parse(result.item.response);
-        let name = res.data.profile.fullname; 
-        let token = res.data.token;   
+        let name = res.data.profile.fullname;
+        let token = res.data.token;
         console.log('Token :', token);
-        setTimeout(function(){ 
+        setTimeout(function(){
                window.location.href = './home/'  + 'token_id=' + token + '&' + 'name=' + name; // we pass the token and name as parameter and retrieve it in the 2nd page from the url
-             }, 1000); 
+             }, 1000);
       }
-    }); 
+    });
    })
 }
 

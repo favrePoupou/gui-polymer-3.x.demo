@@ -8,14 +8,14 @@ export class CreateConnexion {
 
 	async connexion() {
 		let result = await this.makeConnexion();
-		return result;		
+		return result;
 	}
 
-	makeConnexion(){	
+	makeConnexion(){
 		return new Promise(resolve => {
-		window.soap.createClient(this.url, function(err, Soap){	
-			 resolve(Soap);									 			
+		window.soap.createClient(this.url, function(err, Soap){
+			 resolve(Soap);
 			})
-		})	
+		})
 	}
 }

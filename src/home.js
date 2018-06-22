@@ -40,8 +40,6 @@ export class Home extends PolymerElement {
    <button class="btn success" type="button" on-click="listAllMethods">See Api</button>
    <button class="btn default" type="button" on-click="callApi">Call Api fct</button>
    </div> 
-
-
    `;
  }
 
@@ -55,7 +53,6 @@ export class Home extends PolymerElement {
  };   
 } 
 
-
 constructor() {
   super();   
   this.token = this.getToken();
@@ -63,7 +60,7 @@ constructor() {
   this.username = this.getVars()["name"];
   this.urlGadmin = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=gadmin;version=1.0";
   this.urlDoorman = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
-}   
+}
 
 getVars() {
   let vars = {};
@@ -78,19 +75,19 @@ getToken(){
   let tk = {};
     let url = window.location.href; // retrieve url including token
     let carac = '\=(.*)&';             // define the regex
-    let match = url.match(carac); 
+    let match = url.match(carac);
     // Avoid the calling of empty object at the login.js
     if(match){
-      tk = match[1];      
-      return tk ;  
+      tk = match[1];
+      return tk ;
     }else{
       tk = {};
-    }          
+    }
   }
 
 
-  listAllMethods(){ 
-    let url = this.urlGadmin; 
+  listAllMethods(){
+    let url = this.urlGadmin;
      new CreateConnexion(url).connexion().then(function(soap){
        console.log('All Api methods', soap);
      })
@@ -106,14 +103,14 @@ getToken(){
             console.log('Error', err);
           }else{
             console.log('create_holiday function :',result);
-          } 
-        }) 
-      }) 
+          }
+        })
+      })
     }
 
     setContext(){
      let token = this.token;
-     let url = this.urlDoorman; 
+     let url = this.urlDoorman;
 
       new CreateConnexion(url).connexion().then(function(soap){
         soap.set_context({'token': token} , function(err, result){
@@ -121,29 +118,29 @@ getToken(){
           console.log('Error', err);
         }else{
           console.log('Set_Context function :',result);
-        } 
+        }
       })
-     }) 
+     })
     }
 
-   logoutUser(){ 
+   logoutUser(){
     let token = this.token;
-    let url = this.urlDoorman; 
+    let url = this.urlDoorman;
 
-    new CreateConnexion(url).connexion().then(function(soap){    
+    new CreateConnexion(url).connexion().then(function(soap){
       soap.logout({'token': token} , function(err, result){
         console.log('Kill the token',result);
         if(err){
           console.log('Err', err);
-        }else{                 
-          setTimeout(function(){ 
+        }else{
+          setTimeout(function(){
            window.location.href = './user'
-         }, 1000);  
-        } 
+         }, 1000);
+        }
       })
     })
-  } 
-}  
+  }
+}
 
 
 window.customElements.define('my-home', Home);
