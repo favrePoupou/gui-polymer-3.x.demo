@@ -1,4 +1,3 @@
-
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
 import '@polymer/app-route/app-location.js';
@@ -32,24 +31,20 @@ export class Login extends PolymerElement {
       *//* Firefox 18- *//*
       color: #d7d7d7;
     }
-
     body {
       font-family: 'Open Sans', Arial, sans-serif;
       font-size: 16px;
     }
-
     h3 {
       font-weight: bold;
       font-size: 1.5rem;
       text-align: center;
       color: #303133;
     }
-
     h4 {
       font-size: 1.2rem;
       color: #3a74cb;
     }
-
     .subscribe-container {
       text-align: center;
       margin: 2em auto;
@@ -58,7 +53,6 @@ export class Login extends PolymerElement {
       max-width: 500px;
       background-color: #fff;
     }
-
     .mc_embed_signup input.required {
       font-size: 16px;
       border: none;
@@ -70,7 +64,6 @@ export class Login extends PolymerElement {
       font-family: 'Open Sans', Arial, sans-serif;
       box-sizing: border-box;
     }
-
     .mc_embed_signup input#mc-embedded-subscribe {
       background: #3a74cb;
       font-size: .8rem;
@@ -87,8 +80,6 @@ export class Login extends PolymerElement {
       font-family: 'Open Sans', Arial, sans-serif;
       font-weight: 700;
     }
-
-
     @media screen and (orientation:portrait) {
      img {
       width: 10%;
@@ -114,7 +105,6 @@ export class Login extends PolymerElement {
   }
 }
 </style>  
-
 <img src="/images/logo_en.png" width="1" height="1" class="center"> 
 <div class="subscribe-container">
 <div class="mc_embed_signup">
@@ -132,26 +122,22 @@ export class Login extends PolymerElement {
 </div>    
 `;
 }
-
 static get properties() {
   return {     
    username : { type: String }, 
    password : { type: String }
   } 
 } 
-
 constructor() {
   super();     
    this.urlDoorman = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1"; 
    this.username = this.getUsername() ;
 }
-
 getUsername() {  
   let vars = {};  
   let url = window.location.href;
   let carac = '(?<=name=).*' ;
   let match = url.match(carac);
-
    if(match){
       vars = match[0];      
       return vars ;  
@@ -159,15 +145,12 @@ getUsername() {
       vars = {};
     } 
 }
-
 onpressEnter(e){
   if(e.key === "Enter"){  
   // manage the enter press here
  }          
 }
-
 submit(){  
-
   let url = this.urlDoorman;
   let username = this.username;  
   let password = this.password; 
@@ -197,14 +180,10 @@ submit(){
     }); 
    })
 }
-
 callCounter(){
  new Counter().countLock().then(function(result){
-  console.log('DATE NOW', result.getUTCMilliseconds());
-  //Fri Jun 22 2018 15:54:21 GMT-0400 (heure d’été de l’Est)
+  console.log('DATE NOW', result);
  })
 }
-
 }
-
 window.customElements.define('my-login', Login);

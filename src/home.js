@@ -1,4 +1,3 @@
-
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { Language } from './scripts/get-language.js';
 import { CreateConnexion } from './scripts/connect-api.js';
@@ -8,7 +7,6 @@ import './shared-styles.js';
 export class Home extends PolymerElement {
   static get template() {
     return html`
-
     <style include="shared-styles">
     .card {
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -20,13 +18,11 @@ export class Home extends PolymerElement {
     .name {
      color: #0070ff;
    }
-
    .user-title{
      text-align:center
    }
  
    </style>
-
    
    <h2 class="user-title">User</h2>
    <div class="card">
@@ -41,7 +37,6 @@ export class Home extends PolymerElement {
    <!-- <button class="btn danger" type="button" on-click="lockPage">Lock</button> -->
    </div>  
    
-
    `;
  }
 
