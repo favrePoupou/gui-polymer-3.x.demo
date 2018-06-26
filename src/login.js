@@ -200,7 +200,8 @@ submit(){
 
 callCounter(){
  new Counter().countLock().then(function(result){
-  console.log('DATE NOW', result);
+  console.log('DATE NOW', result.getUTCMilliseconds());
+  //Fri Jun 22 2018 15:54:21 GMT-0400 (heure d’été de l’Est)
  })
 }
 
