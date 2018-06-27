@@ -16,6 +16,7 @@ import './my-icons.js';
 import './shared-styles.js';
 import './user.js';
 import './home.js';
+import './shared/session-manager.js';
 
 
 // Gesture events like tap and track generated from touch will not be
@@ -54,6 +55,7 @@ class MyApp extends PolymerElement {
   <my-view3 name="view3" route="{{subroute}}"></my-view3>
   <my-view404 name="view404" route="{{subroute}}"></my-view404>
   </iron-pages>
+  <!--<my-session></my-session>-->
   `;
 }
 

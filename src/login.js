@@ -115,7 +115,7 @@ export class Login extends PolymerElement {
 <input type="password" value="{{ password::input }}"  placeholder="Insérer votre mot de passe" name="password" class="required password" id="pwd">              
 </div>          
 <button class="btn primary" type="button" on-click="submit">Se connecter</button>  
-<button class="btn default" type="button" on-click="callCounter">Time</button>                   
+       
 </div>              
    
 </div>
@@ -179,11 +179,6 @@ submit(){
       }
     }); 
    })
-}
-callCounter(){
- new Counter().countLock().then(function(result){
-  console.log('DATE NOW', result);
- })
-}
+  }
 }
 window.customElements.define('my-login', Login);
