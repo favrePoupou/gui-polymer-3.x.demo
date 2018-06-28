@@ -122,17 +122,20 @@ export class Login extends PolymerElement {
 </div>    
 `;
 }
+
 static get properties() {
   return {     
    username : { type: String }, 
    password : { type: String }
   } 
 } 
+
 constructor() {
   super();     
-   this.urlDoorman = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1"; 
+   this.urlDoorman = "http://api.dev.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1"; 
    this.username = this.getUsername() ;
 }
+
 getUsername() {  
   let vars = {};  
   let url = window.location.href;
@@ -145,11 +148,13 @@ getUsername() {
       vars = {};
     } 
 }
+
 onpressEnter(e){
   if(e.key === "Enter"){  
   // manage the enter press here
  }          
 }
+
 submit(){  
   let url = this.urlDoorman;
   let username = this.username;  
@@ -180,5 +185,7 @@ submit(){
     }); 
    })
   }
+
 }
+
 window.customElements.define('my-login', Login);

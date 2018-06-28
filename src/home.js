@@ -3,9 +3,7 @@ import { Language } from './scripts/get-language.js';
 import { CreateConnexion } from './scripts/connect-api.js';
 import './login.js';
 import './shared-styles.js';
-import { Counter } from './scripts/counter.js';
 import { Session } from './shared/session-manager.js';
-import { ModalSession } from './shared/modal-session-lock.js';
 import {} from '@polymer/polymer/lib/elements/dom-if.js';
 
 export class Home extends PolymerElement {
@@ -37,18 +35,17 @@ export class Home extends PolymerElement {
    <button class="btn danger" type="button" on-click="logoutUser">Logout</button>
    <button class="btn info" type="button" on-click="setContext">Set Context</button>  
    <button class="btn success" type="button" on-click="listAllMethods">See Api</button>
-   <button class="btn default" type="button" on-click="callApi">Call Api fct</button>   
-   <!-- <button class="btn danger" type="button" on-click="lockPage">Lock</button> -->
+   <button class="btn default" type="button" on-click="callApi">Call Api fct</button>
    </div>  
    <button class="btn default" id="myButton" type="button" on-click="startTime">Start Time</button>   
    <button class="btn default" type="button" on-click="endTime">End Time</button>
    <button class="btn default" type="button" on-click="diffTime">Diff Time</button> 
    <button class="btn default" type="button" on-click="resetTimer">Reset timer</button> 
+   <button class="btn default" type="button" on-click="test">test</button>
 
    <my-counter></my-counter> <!-- Call some component (test) -->   
-   <!-- <my-session></my-session> -->  
-   <my-modalsession></my-modalsession> 
-      
+   <my-session></my-session> 
+   
    `;
  }
 
@@ -63,7 +60,6 @@ export class Home extends PolymerElement {
    username: { type: String },
    itsHidden: { type: Boolean },
    location: { type: String},
-
  };   
 } 
 
@@ -77,7 +73,7 @@ constructor() {
   this.urlDoorman = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=doorman;version=1";
   this.urlGui = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=gui;version=1.0";
   this.urlHelloworld = "http://api.stable.gsked.dev.garda.com/wsdl/v1/?appname=helloworld;version=1.0";
-  this.session = new Session();    
+  this.session = new Session();     
 }   
 
 
@@ -93,11 +89,12 @@ ready(){
   super.ready();
   if(window.location.href.indexOf('home') > -1) {
     this.session.startEventsMonitoring();  // Start listenning activities on the current page (home)
-  }
-  
+  }  
 
   
 }
+
+// Retrieve the token of the user from the url
 
 getToken(){
   let tk = {};
@@ -113,12 +110,7 @@ getToken(){
     }          
   }
 
- // Lock the page after 30' without activities 
-
-  lockPage(){
-    console.log('Lock is called');
-  }
-
+ 
  // List all the method from gadmin after the authentication
 
   listAllMethods(){ 

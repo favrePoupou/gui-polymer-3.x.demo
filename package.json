@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@material/checkbox": "^0.36.1",
-    "@material/dialog": "^0.36.1",
     "@polymer/app-layout": "^3.0.0-pre.15",
     "@polymer/app-route": "^3.0.0-pre.15",
     "@polymer/iron-flex-layout": "^3.0.0-pre.15",
